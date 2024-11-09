@@ -1,15 +1,17 @@
 import { Inject } from '@nestjs/common';
-import { DeleteTaskUseCase } from 'src/core/task/usecase/task/delete-task/delete-task.usecase';
+import { FilterPetsDto } from 'src/core/pet/dto/filter-pets.dto';
+import { Pet } from 'src/core/pet/entity/pet.entity';
+import { FilterPetsUseCase } from 'src/core/pet/usecase/filter-pets/filter-pets.usecase';
 
-export class DeleteTaskController {
+export class FilterPetsController {
   constructor(
-    @Inject(DeleteTaskUseCase)
-    private deleteTaskUseCase: DeleteTaskUseCase,
+    @Inject(FilterPetsUseCase)
+    private filterPetsUseCase: FilterPetsUseCase,
   ) {}
 
-  async handle(id: string): Promise<void> {
-    const deleteTask = this.deleteTaskUseCase.execute(id);
+  async handle(query: FilterPetsDto): Promise<Pet[]> {
+    const filterPets = this.filterPetsUseCase.execute(query);
 
-    return deleteTask;
+    return filterPets;
   }
 }

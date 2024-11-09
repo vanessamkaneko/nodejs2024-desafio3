@@ -11,6 +11,8 @@ import { ViewPetUseCase } from 'src/core/pet/usecase/view-pet/view-pet.usecase';
 import { ViewPetController } from '../operation/controller/pet/view-pet/view-pet.controller';
 import { ListPetsUseCase } from 'src/core/pet/usecase/list-pets/list-pets.usecase';
 import { ListPetsController } from '../operation/controller/pet/list-pets/list-pets.controller';
+import { FilterPetsUseCase } from 'src/core/pet/usecase/filter-pets/filter-pets.usecase';
+import { FilterPetsController } from '../operation/controller/pet/filter-pets/filter-pets.controller';
 
 const persistenceProviders: Provider[] = [
   {
@@ -42,6 +44,11 @@ const useCaseProviders: Provider[] = [
     useFactory: (petGateway: IPetGateway) => new ListPetsUseCase(petGateway),
     inject: [IPetGateway],
   },
+  {
+    provide: FilterPetsUseCase,
+    useFactory: (petGateway: IPetGateway) => new FilterPetsUseCase(petGateway),
+    inject: [IPetGateway],
+  },
 ];
 
 const controllerProviders: Provider[] = [
@@ -62,6 +69,12 @@ const controllerProviders: Provider[] = [
     useFactory: (listPetsUseCase: ListPetsUseCase) =>
       new ListPetsController(listPetsUseCase),
     inject: [ListPetsUseCase],
+  },
+  {
+    provide: FilterPetsController,
+    useFactory: (filterPetsUseCase: FilterPetsUseCase) =>
+      new FilterPetsController(filterPetsUseCase),
+    inject: [FilterPetsUseCase],
   },
 ];
 

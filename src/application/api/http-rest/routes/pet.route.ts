@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ListPetsController } from 'src/application/operation/controller/pet/list-pets/list-pets.controller';
 import { RegisterPetController } from 'src/application/operation/controller/pet/register-pet/register-pet.controller';
 import { ViewPetController } from 'src/application/operation/controller/pet/view-pet/view-pet.controller';
+import { FilterPetsDto } from 'src/core/pet/dto/filter-pets.dto';
 import { ListPetsDto } from 'src/core/pet/dto/list-pets.dto';
 import { RegisterPetDto } from 'src/core/pet/dto/register-pet.dto';
 import { Pet } from 'src/core/pet/entity/pet.entity';
@@ -26,12 +27,12 @@ export class PetControllerRoute {
     return listPetsByCity;
   }
 
-  // // Filtrar pets
-  // @Get('/')
-  // async list(@Query() query: ListTaskDto): Promise<Task[]> {
-  //   const listTasks = await this.listTasksController.handle(query);
-  //   return listTasks;
-  // }
+  // Filtrar pets
+  @Get('/')
+  async filter(@Query() query: FilterPetsDto): Promise<Pet[]> {
+    const filterPets = await this.listPetsController.handle(query);
+    return filterPets;
+  }
 
   @Get('/:id')
   async view(@Param('id') id: string): Promise<Pet> {

@@ -4,6 +4,7 @@ import { RegisterPetDto } from 'src/core/pet/dto/register-pet.dto';
 import { Pet } from 'src/core/pet/entity/pet.entity';
 import { IPetMongoDbRepository } from 'src/infrastructure/persistence/repositories/pet/mongodb/IPet-mongodb.repository';
 import { ListPetsDto } from 'src/core/pet/dto/list-pets.dto';
+import { FilterPetsDto } from 'src/core/pet/dto/filter-pets.dto';
 
 export class PetGateway implements IPetGateway {
   constructor(
@@ -27,5 +28,11 @@ export class PetGateway implements IPetGateway {
     const pet = await this.petRepository.findByCity(query);
 
     return pet;
+  }
+
+  async filterPets(query: FilterPetsDto): Promise<Pet[]> {
+    const pets = await this.petRepository.filterPets(query);
+
+    return pets;
   }
 }
