@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GlobalExceptionFilter } from '../api/http-rest/global-exception/global.exception';
 import { APP_FILTER } from '@nestjs/core';
-import { TaskModule } from './task.module';
 import { MongoDbService } from 'src/infrastructure/persistence/bds/mongodb/MongoDb.service';
+import { PetModule } from './pet.module';
 
 @Module({
-  imports: [TaskModule, ConfigModule.forRoot()],
+  imports: [PetModule, ConfigModule.forRoot()],
   controllers: [],
   providers: [
     {
