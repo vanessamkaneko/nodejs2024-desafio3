@@ -9,11 +9,11 @@ import { FilterPetsDto } from 'src/core/pet/dto/filter-pets.dto';
 @Injectable()
 export class PetMongoDbRepository implements IPetMongoDbRepository {
   async create(pet: RegisterPetDto): Promise<Pet> {
-    const petRegistered = await PetModel.create({ ...pet });
+    const registeredPet = await PetModel.create({ ...pet });
 
-    await petRegistered.save();
+    await registeredPet.save();
 
-    return petRegistered;
+    return registeredPet;
   }
 
   async findById(id: string): Promise<Pet | null> {

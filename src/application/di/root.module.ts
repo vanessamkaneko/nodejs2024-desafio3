@@ -4,9 +4,10 @@ import { GlobalExceptionFilter } from '../api/http-rest/global-exception/global.
 import { APP_FILTER } from '@nestjs/core';
 import { MongoDbService } from 'src/infrastructure/persistence/bds/mongodb/MongoDb.service';
 import { PetModule } from './pet.module';
+import { OrgModule } from './org.module';
 
 @Module({
-  imports: [PetModule, ConfigModule.forRoot()],
+  imports: [PetModule, OrgModule, ConfigModule.forRoot()],
   controllers: [],
   providers: [
     {

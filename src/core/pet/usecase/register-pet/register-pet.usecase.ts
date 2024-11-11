@@ -13,8 +13,8 @@ export class RegisterPetUseCase {
   async execute(payload: RegisterPetDto): Promise<Pet> {
     const newPet = Pet.new(payload);
 
-    const petRegistered = await this.petGateway.registerPet(newPet);
+    const registeredPet = await this.petGateway.registerPet(newPet);
 
-    return petRegistered;
+    return registeredPet;
   }
 }

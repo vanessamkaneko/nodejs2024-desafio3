@@ -13,7 +13,6 @@ export class ListPetsUseCase {
 
   async execute(query: ListPetsDto): Promise<Pet[]> {
     const pets = await this.petGateway.findPetsByCity(query);
-    console.log(pets);
 
     if (pets.length === 0) {
       throw new PetNotFoundError();
