@@ -1,8 +1,7 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { RegisterOrgDto } from '../../dto/register-org.dto';
 import { Org } from '../../entity/org.entity';
 import { IOrgGateway } from 'src/application/operation/gateway/org/IOrgGateway';
-import { EmailAlreadyExistsError } from '../errors/email-already-exists';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
@@ -18,7 +17,7 @@ export class RegisterOrgUseCase {
     );
 
     if (emailAlreadyExists) {
-      throw new EmailAlreadyExistsError();
+      throw new BadRequestException('E-mail already in use!');
     }
 
     const password_hash = await bcrypt.hash(payload.password, 6);

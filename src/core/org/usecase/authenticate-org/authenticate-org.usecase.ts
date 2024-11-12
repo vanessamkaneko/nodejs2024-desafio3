@@ -1,8 +1,7 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { IOrgGateway } from 'src/application/operation/gateway/org/IOrgGateway';
 import { AuthenticateOrgDto } from '../../dto/authenticate-org.dto';
 import { Org } from '../../entity/org.entity';
-import { InvalidCredentialsError } from '../errors/invalid-credentials-error';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
@@ -16,7 +15,7 @@ export class AuthenticateOrgUseCase {
     const org = await this.orgGateway.findOrgByEmail(payload.email);
 
     if (!org) {
-      throw new InvalidCredentialsError();
+      throw new UnauthorizedException('Invalid credentials!');
     }
 
     const doesPasswordMatches = await bcrypt.compare(
@@ -25,7 +24,7 @@ export class AuthenticateOrgUseCase {
     );
 
     if (!doesPasswordMatches) {
-      throw new InvalidCredentialsError();
+      throw new UnauthorizedException('Invalid credentials!');
     }
 
     return org;

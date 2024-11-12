@@ -6,6 +6,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import fastifyJwt from '@fastify/jwt';
+import { GlobalExceptionFilter } from 'src/global-exception-filter';
 
 export class ServerApplication {
   public async run(): Promise<void> {
@@ -22,6 +23,7 @@ export class ServerApplication {
       });
 
     app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalFilters(new GlobalExceptionFilter());
 
     await app.listen(3333);
     console.log('Server is online!');

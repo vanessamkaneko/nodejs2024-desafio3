@@ -1,7 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Pet } from '../../entity/pet.entity';
 import { IPetGateway } from 'src/application/operation/gateway/pet/IPetGateway';
-import { PetNotFoundError } from '../errors/pet-not-found-error';
 
 @Injectable()
 export class ViewPetUseCase {
@@ -14,7 +13,7 @@ export class ViewPetUseCase {
     const pet = await this.petGateway.findPetById(id);
 
     if (!pet) {
-      throw new PetNotFoundError();
+      throw new NotFoundException('Pet not found!');
     }
 
     return pet;
