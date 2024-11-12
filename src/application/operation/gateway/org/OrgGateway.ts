@@ -15,4 +15,10 @@ export class OrgGateway implements IOrgGateway {
 
     return registerOrg;
   }
+
+  async findOrgByEmail(email: string): Promise<Org> {
+    const org = await this.orgRepository.findByEmail(email);
+
+    return org;
+  }
 }

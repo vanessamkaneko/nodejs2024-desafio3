@@ -6,6 +6,8 @@ import { OrgGateway } from '../operation/gateway/org/OrgGateway';
 import { IOrgGateway } from '../operation/gateway/org/IOrgGateway';
 import { RegisterOrgUseCase } from 'src/core/org/usecase/register-org/register-org.usecase';
 import { RegisterOrgController } from '../operation/controller/org/register-org/register-org.controller';
+import { AuthenticateOrgUseCase } from 'src/core/org/usecase/authenticate-org/authenticate-org.usecase';
+import { AuthenticateOrgController } from '../operation/controller/org/authenticate-org/authenticate-org.controller';
 
 const persistenceProviders: Provider[] = [
   {
@@ -24,7 +26,13 @@ const persistenceProviders: Provider[] = [
 const useCaseProviders: Provider[] = [
   {
     provide: RegisterOrgUseCase,
-    useFactory: (petGateway: IOrgGateway) => new RegisterOrgUseCase(petGateway),
+    useFactory: (orgGateway: IOrgGateway) => new RegisterOrgUseCase(orgGateway),
+    inject: [IOrgGateway],
+  },
+  {
+    provide: AuthenticateOrgUseCase,
+    useFactory: (orgGateway: IOrgGateway) =>
+      new AuthenticateOrgUseCase(orgGateway),
     inject: [IOrgGateway],
   },
 ];
@@ -35,6 +43,12 @@ const controllerProviders: Provider[] = [
     useFactory: (registerOrgUseCase: RegisterOrgUseCase) =>
       new RegisterOrgController(registerOrgUseCase),
     inject: [RegisterOrgUseCase],
+  },
+  {
+    provide: AuthenticateOrgController,
+    useFactory: (authenticateOrgUseCase: AuthenticateOrgUseCase) =>
+      new AuthenticateOrgController(authenticateOrgUseCase),
+    inject: [AuthenticateOrgUseCase],
   },
 ];
 

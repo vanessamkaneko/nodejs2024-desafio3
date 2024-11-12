@@ -3,6 +3,7 @@ import { Org } from 'src/core/org/entity/org.entity';
 
 export interface IOrgGateway {
   registerOrg(payload: RegisterOrgDto): Promise<Org>;
+  findOrgByEmail(email: string): Promise<Org>;
 }
 
 export const IOrgGateway = Symbol('IOrgGateway');

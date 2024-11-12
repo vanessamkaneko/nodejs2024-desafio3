@@ -13,4 +13,10 @@ export class OrgMongoDbRepository implements IOrgMongoDbRepository {
 
     return registeredOrg;
   }
+
+  async findByEmail(email: string): Promise<Org> {
+    const org = await OrgModel.findOne({ email });
+
+    return org;
+  }
 }

@@ -27,8 +27,7 @@ export class PetControllerRoute {
     return listPetsByCity;
   }
 
-  // Filtrar pets
-  @Get('/')
+  @Get('/filter')
   async filter(@Query() query: FilterPetsDto): Promise<Pet[]> {
     const filterPets = await this.listPetsController.handle(query);
     return filterPets;
